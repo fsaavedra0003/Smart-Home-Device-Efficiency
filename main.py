@@ -1,12 +1,11 @@
-#### `main.py`
-This file will be the entry point of the project.
-
-```python
 from device_manager import DeviceManager
 from efficiency_calculator import EfficiencyCalculator
 
 def main():
-    device_manager = DeviceManager()
+    # Path to the CSV file
+    csv_path = '/smart_home_device_data.csv'
+    
+    device_manager = DeviceManager(csv_path)
     efficiency_calculator = EfficiencyCalculator(device_manager)
 
     print("Welcome to the Smart Home Device Efficiency Monitor.")
@@ -15,7 +14,10 @@ def main():
     print(f"Found {len(devices)} devices.")
     
     for device in devices:
-        print(f"Device: {device['name']}, Status: {device['status']}, Energy Usage: {device['energy_usage']}W")
+        print(f"Device ID: {device['serID']}, Type: {device['DeviceType']}, "
+              f"Usage Hours: {device['UsageHoursPerDay']} hrs, "
+              f"Energy Consumption: {device['EnergyConsumption']} kWh, "
+              f"Smart Home Efficiency: {'Efficient' if device['SmartHomeEfficiency'] == 1 else 'Inefficient'}")
     
     efficiency = efficiency_calculator.calculate_efficiency(devices)
     print(f"Overall Efficiency: {efficiency}%")
