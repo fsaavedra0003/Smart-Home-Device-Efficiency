@@ -3,11 +3,9 @@ class EfficiencyCalculator:
         self.device_manager = device_manager
 
     def calculate_efficiency(self, devices):
-        total_usage = sum(device['energy_usage'] for device in devices)
-        num_devices = len(devices)
+        total_devices = len(devices)
+        efficient_devices = sum(1 for device in devices if device['SmartHomeEfficiency'] == 1)
         
-        # In this case, assume 100W is the ideal energy usage per device for efficiency
-        ideal_usage = num_devices * 100
-        
-        efficiency = (total_usage / ideal_usage) * 100
+        # Calculate the percentage of efficient devices
+        efficiency = (efficient_devices / total_devices) * 100
         return round(efficiency, 2)
